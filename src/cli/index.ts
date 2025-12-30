@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { deepAgentModelId } from "../agent/deep-agent.js";
 import { deepAgent } from "../agent/index.js";
 import { createTUI } from "../tui/index.js";
 
@@ -43,7 +44,7 @@ async function main() {
       header: {
         name: "Open Claude Code",
         version: "0.1.0",
-        model: "Claude Haiku",
+        model: deepAgentModelId,
       },
     });
   } catch (error) {

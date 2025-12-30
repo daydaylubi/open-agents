@@ -3,7 +3,6 @@ import { Box, Text, useApp, useInput } from "ink";
 import {
   isToolUIPart,
   getToolName,
-  lastAssistantMessageIsCompleteWithApprovalResponses,
 } from "ai";
 import { useChat } from "@ai-sdk/react";
 import { renderMarkdown } from "./lib/markdown.js";

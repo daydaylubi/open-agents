@@ -1,9 +1,7 @@
 import type { DynamicToolUIPart, InferAgentUIMessage, InferUITools, ToolLoopAgent, ToolUIPart } from "ai";
-import type { DeepAgent } from "../agent/deep-agent";
+import type { tuiAgent } from "./config";
 
-// update here!
-export type TUIAgent = DeepAgent;
-// export type TUIAgent = ToolLoopAgent<any, any, any>;
+export type TUIAgent = typeof tuiAgent;
 export type TUIAgentCallOptions = Parameters<TUIAgent["generate"]>["0"]["options"];
 
 // all derived
