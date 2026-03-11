@@ -313,6 +313,7 @@ export const userPreferences = pgTable("user_preferences", {
   defaultSandboxType: text("default_sandbox_type", {
     enum: ["hybrid", "vercel", "just-bash"],
   }).default("vercel"),
+  autoCommitPush: boolean("auto_commit_push").notNull().default(false),
   modelVariants: jsonb("model_variants")
     .$type<ModelVariant[]>()
     .notNull()

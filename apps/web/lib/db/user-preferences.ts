@@ -9,6 +9,7 @@ export interface UserPreferencesData {
   defaultModelId: string;
   defaultSubagentModelId: string | null;
   defaultSandboxType: SandboxType;
+  autoCommitPush: boolean;
   modelVariants: ModelVariant[];
 }
 
@@ -16,6 +17,7 @@ const DEFAULT_PREFERENCES: UserPreferencesData = {
   defaultModelId: "anthropic/claude-haiku-4.5",
   defaultSubagentModelId: null,
   defaultSandboxType: "vercel",
+  autoCommitPush: false,
   modelVariants: [],
 };
 
@@ -38,6 +40,7 @@ export function toUserPreferencesData(
     | "defaultModelId"
     | "defaultSubagentModelId"
     | "defaultSandboxType"
+    | "autoCommitPush"
     | "modelVariants"
   >,
 ): UserPreferencesData {
@@ -49,6 +52,7 @@ export function toUserPreferencesData(
     defaultModelId: row?.defaultModelId ?? DEFAULT_PREFERENCES.defaultModelId,
     defaultSubagentModelId: row?.defaultSubagentModelId ?? null,
     defaultSandboxType: normalizeSandboxType(row?.defaultSandboxType),
+    autoCommitPush: row?.autoCommitPush ?? DEFAULT_PREFERENCES.autoCommitPush,
     modelVariants: parsedModelVariants.success ? parsedModelVariants.data : [],
   };
 }
@@ -105,6 +109,8 @@ export async function updateUserPreferences(
       defaultSubagentModelId: updates.defaultSubagentModelId ?? null,
       defaultSandboxType:
         updates.defaultSandboxType ?? DEFAULT_PREFERENCES.defaultSandboxType,
+      autoCommitPush:
+        updates.autoCommitPush ?? DEFAULT_PREFERENCES.autoCommitPush,
       modelVariants: updates.modelVariants ?? DEFAULT_PREFERENCES.modelVariants,
     })
     .returning();
