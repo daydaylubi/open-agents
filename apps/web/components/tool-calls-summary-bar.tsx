@@ -65,6 +65,7 @@ export function ToolCallsSummaryBar({
   onToggle,
   isStreaming,
   toolCallCount,
+  changedFiles,
   todoInfo,
   durationMs,
   startedAt,
@@ -74,6 +75,8 @@ export function ToolCallsSummaryBar({
   onToggle: () => void;
   isStreaming: boolean;
   toolCallCount: number;
+  /** Unique file paths modified by write/edit tool calls in this turn. */
+  changedFiles: string[];
   todoInfo: TodoInfo | null;
   /** Final generation duration in ms (for completed messages). */
   durationMs: number | null;
@@ -144,13 +147,14 @@ export function ToolCallsSummaryBar({
     desktopSegments.push(toolCallLabel);
   }
 
+  if (changedFiles.length > 0) {
+    const filesLabel = `${changedFiles.length} file${changedFiles.length !== 1 ? "s" : ""} changed`;
+    desktopSegments.push(filesLabel);
+  }
+
   if (todoInfo && todoInfo.total > 0) {
     const todoLabel = `Todo ${todoInfo.completed}/${todoInfo.total}`;
-    desktopSegments.push(
-      todoInfo.inProgress > 0
-        ? `${todoLabel} (${todoInfo.inProgress} active)`
-        : todoLabel,
-    );
+    desktopSegments.push(todoLabel);
     mobileSegments.push(todoLabel);
   } else if (toolCallLabel) {
     mobileSegments.push(toolCallLabel);
